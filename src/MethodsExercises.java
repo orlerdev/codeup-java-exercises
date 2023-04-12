@@ -21,14 +21,14 @@ public class MethodsExercises {
 //            System.out.println("The user does not want to continue");
 //        }
 
-        System.out.println("Enter the number of side your die will have.");
+        System.out.println("Enter the number of sides your die will have.");
         int numberOfSides = scan.nextInt();
         System.out.println("Do You Want to Roll the dice? Y/N?");
         Scanner input = new Scanner(System.in);
         String cont = input.nextLine();
         if (cont.equalsIgnoreCase("y")) {
             input.close();
-        rollTheDice(numberOfSides);
+            rollTheDice(numberOfSides);
         } else {
             System.out.println("The user does not want to play the game.");
         }
@@ -77,6 +77,14 @@ public class MethodsExercises {
         int die1 = randomNumber(1, num);
         int die2 = randomNumber(1, num);
         System.out.printf("You rolled a %d and a %d.", die1, die2);
+    }
+
+    public static long recursiveFactorial(long num) {
+        if (num <= 1) {
+            return 1;
+        } else {
+            return num * recursiveFactorial(num - 1);
+        }
     }
 
 }
