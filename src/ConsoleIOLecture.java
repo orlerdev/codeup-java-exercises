@@ -1,4 +1,5 @@
 public class ConsoleIOLecture {
+
     public static void main(String[] args) {
         String cohort = "Bigfoot";
         int week = 9;
@@ -12,5 +13,4 @@ public class ConsoleIOLecture {
         System.out.printf("The number is %011.2f%n", myFloat);
         System.out.printf("The number is %-11.2f%n", myFloat);
         System.out.print("This string will reside on a new line in the console");
-    }
-}
+    }}
