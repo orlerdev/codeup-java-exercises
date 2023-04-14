@@ -1,11 +1,6 @@
-public class UtilityMethods {
-    public static void main(String[] args) {
-        int n = 30;
-        System.out.println("Decimal - " + n);
-        System.out.println("Binary - ");
-        decToBinary(n);
-    }
-    static void decToBinary(int n) {
+package utils;
+public class DecimalToBinary {
+    public static void decToBinary(int n) {
         int[] binaryNum = new int[1000];
         int i = 0;
         while (n > 0) {
