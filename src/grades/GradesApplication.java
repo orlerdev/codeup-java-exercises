@@ -4,30 +4,32 @@ import java.io.*;
 import com.opencsv.CSVWriter;
 import utils.Input;
 
-import java.lang.reflect.Array;
 import java.util.*;
-
-import static grades.StudentRollCall.*;
 
 public class GradesApplication{
     static Input input = new Input();
-//    private static HashMap<String, Student> students = new HashMap<>();
-//    private static ArrayList<String> studentNames = new ArrayList<>();
+    protected static HashMap<String, Student> students = new HashMap<>();
+    protected static ArrayList<String> studentNames = new ArrayList<>();
     public static void main(String[] args){
-//        Student tom = new Student("Tom", "tom@github.com", new HashMap<>(), new ArrayList<>());
-//        Student william = new Student("William", "william@github.com", new HashMap<>(), new ArrayList<>());
-//        Student suzie = new Student("Suzie", "suzie@github.com", new HashMap<>(), new ArrayList<>());
-//        Student sophie = new Student("Sophie", "sophie@github.com", new HashMap<>(), new ArrayList<>());
+        Student tom = new Student("Tom", "tom@github.com", new HashMap<>(), new ArrayList<>());
+        Student william = new Student("William", "william@github.com", new HashMap<>(), new ArrayList<>());
+        Student suzie = new Student("Suzie", "suzie@github.com", new HashMap<>(), new ArrayList<>());
+        Student sophie = new Student("Sophie", "sophie@github.com", new HashMap<>(), new ArrayList<>());
 
-        students.put(tom.getGithubUsername(), tom);
-        students.put(william.getGithubUsername(), william);
-        students.put(suzie.getGithubUsername(), suzie);
-        students.put(sophie.getGithubUsername(), sophie);
+        students.putIfAbsent(tom.name, tom);
+        students.putIfAbsent(william.name, william);
+        students.putIfAbsent(suzie.name, suzie);
+        students.putIfAbsent(sophie.name, sophie);
 
         tom.addGrades(new int[]{89, 90, 100, 56});
         william.addGrades(new int[]{99, 98, 99, 100});
         sophie.addGrades(new int[]{69, 98, 79, 100});
         suzie.addGrades(new int[]{90, 98, 99, 100});
+
+//        tom.setStudentAttendance();
+//        william.setStudentAttendance();
+//        sophie.setStudentAttendance();
+//        suzie.setStudentAttendance();
 
         tom.recordAttendance("2023-04-13", "P");
         tom.recordAttendance("2023-04-14", "P");
@@ -63,13 +65,15 @@ public class GradesApplication{
 
         while (true){
             String userSelection = input.getString("""
-                                                   
+                                                                                                      
                                                    Welcome!
                                                    Please select one of the following options:
                                                                                                       
                                                    1-   View all students
                                                    2-   View grade average for the class
-                                                   3-   Print a CSV report of all students
+                                                   3-   Enter attendance data for a student
+                                                   4-   Enter grades for a student
+                                                   5-   Print a CSV report of all students
                                                                                                       
                                                    Enter q or quit to exit the application.
                                                                                                       
@@ -79,37 +83,50 @@ public class GradesApplication{
                 System.out.println("Thank you!");
                 break;
             }
-            if(userSelection.equalsIgnoreCase("1")){
+            if (userSelection.equalsIgnoreCase("1")){
                 allStudentNames(students);
-                selectedStudent();
+                showStudentData();
             }
-
             switch (userSelection){
                 case "2" -> classAverage(students);
-                case "3" -> generateStudentInfoFile("studentInfo.csv");
+                case "3" -> setStudentAttendance();
+                case "5" -> generateStudentInfoFile("studentInfo.csv");
             }
         }
     }
 
     //METHODS
-    private static ArrayList<String> allStudentNames(HashMap<String, Student> students){
+    private static void allStudentNames(HashMap<String, Student> students){
         for(Map.Entry<String, Student> student : students.entrySet()){
+            if(!studentNames.contains(student.getValue().name)){
             studentNames.add(student.getValue().getName());
+            }
         }
         System.out.println(studentNames);
-        return studentNames;
     }
 
-    private static void selectedStudent(){
-        String selectedStudent = input.getString("""
-                                                 Enter the name of the student you would like more information for
-                                                 """);
+    private static void showStudentData(){
+        String userSelect = input.getString("""
+                                                  
+                                            Enter the name of the student you would like more information for
+                                            """);
         for(Map.Entry<String, Student> student : students.entrySet()){
-            if (student.getValue().name.equalsIgnoreCase(selectedStudent)){
+            if (student.getValue().name.equalsIgnoreCase(userSelect)){
                 student.getValue().showAllStudentData();
             }
         }
+    }
 
+    private static void setStudentAttendance(){
+        String userSelect = input.getString("""
+
+                                            Enter the name of the student you would like to add attendance data for.
+                                            """);
+        for(Map.Entry<String, Student> student : students.entrySet()){
+            if (student.getValue().name.equalsIgnoreCase(userSelect)){
+                student.getValue().setStudentAttendance();
+            }
+        }
     }
 
     private static void classAverage(HashMap<String, Student> students){
@@ -124,11 +141,11 @@ public class GradesApplication{
         System.out.println(total / classGrades.size());
     }
 
-     private static void generateStudentInfoFile(String filePath){
+    private static void generateStudentInfoFile(String filePath){
         File file = new File(filePath);
         try {
-            FileWriter outputfile = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(outputfile);
+            FileWriter outputFile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputFile);
             String[] header = {"name", "github username", "grade average"};
             writer.writeNext(header);
             for(Map.Entry<String, Student> student : students.entrySet()){

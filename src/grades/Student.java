@@ -1,13 +1,16 @@
 package grades;
+import util.Input;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Student{
-    public String name;
-    public String githubUsername;
-//    public HashMap<String, String> attendance;
-    public ArrayList<Integer> grades;
+    protected static Input input = new Input();
+    protected String name;
+    protected String githubUsername;
+    protected HashMap<String, String> attendance;
+    protected ArrayList<Integer> grades;
 
     //CONSTRUCTORS
     public Student(){}
@@ -61,7 +64,7 @@ public class Student{
     }
 
     //ATTENDANCE METHODS
-    public void recordAttendance(String date, String value){
+    protected void recordAttendance(String date, String value){
         attendance.put(date, value);
     }
 
@@ -86,6 +89,25 @@ public class Student{
         return days;
     }
 
+
+
+    protected void setStudentAttendance(){
+        while (true){
+            String attendanceDate = input.getString("Enter the date using the following format: 2017-10-03%n");
+            String attendanceStatus = input.getString("""
+                                                      Enter the student's status for the day:
+                                                      P if present
+                                                      A if absent
+                                                      %n""");
+            recordAttendance(attendanceDate, attendanceStatus.toUpperCase());
+            String userQuit = input.getString("Would you like to add another day? [y/N]%n");
+            if (!userQuit.equalsIgnoreCase("y")){
+                System.out.println("Thank you.");
+                break;
+            }
+        }
+    }
+
     public void showAllStudentData(){
         System.out.printf("""
                           
@@ -95,7 +117,6 @@ public class Student{
                           All grades: %s
                           Attendance percentage: %.2f
                           Missed days: %s
-                          
                           """, name, githubUsername, getGradeAverage(grades), grades.toString(), getAttendancePercentage(attendance), missedDates(attendance));
     }
 
