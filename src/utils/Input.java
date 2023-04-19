@@ -13,7 +13,7 @@ public class Input {
     }
 
     public String getString(String prompt) {
-        System.out.println(prompt);
+        System.out.printf(prompt);
         return scanner.nextLine();
     }
 
@@ -23,7 +23,7 @@ public class Input {
     }
 
     public boolean yesNo(String prompt) {
-        System.out.println(prompt);
+        System.out.printf(prompt);
         String response = scanner.nextLine();
         return response.equalsIgnoreCase("y") || response.equalsIgnoreCase("yes");
     }
@@ -38,7 +38,7 @@ public class Input {
     }
 
     public int getInt(String prompt) {
-        System.out.println(prompt);
+        System.out.printf(prompt);
         return Integer.parseInt(scanner.nextLine());
     }
 
