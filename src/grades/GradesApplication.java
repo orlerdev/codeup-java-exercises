@@ -10,6 +10,8 @@ public class GradesApplication{
     static Input input = new Input();
     protected static HashMap<String, Student> students = new HashMap<>();
     protected static ArrayList<String> studentNames = new ArrayList<>();
+    private final static String getPassword = "!!11Andrea";
+
     public static void main(String[] args){
         Student tom = new Student("Tom", "tom@github.com", new HashMap<>(), new ArrayList<>());
         Student william = new Student("William", "william@github.com", new HashMap<>(), new ArrayList<>());
@@ -25,11 +27,6 @@ public class GradesApplication{
         william.addGrades(new int[]{99, 98, 99, 100});
         sophie.addGrades(new int[]{69, 98, 79, 100});
         suzie.addGrades(new int[]{90, 98, 99, 100});
-
-//        tom.setStudentAttendance();
-//        william.setStudentAttendance();
-//        sophie.setStudentAttendance();
-//        suzie.setStudentAttendance();
 
         tom.recordAttendance("2023-04-13", "P");
         tom.recordAttendance("2023-04-14", "P");
@@ -65,18 +62,18 @@ public class GradesApplication{
 
         while (true){
             String userSelection = input.getString("""
-                                                                                                      
+
                                                    Welcome!
                                                    Please select one of the following options:
-                                                                                                      
+
                                                    1-   View all students
                                                    2-   View grade average for the class
                                                    3-   Enter attendance data for a student
                                                    4-   Enter grades for a student
                                                    5-   Print a CSV report of all students
-                                                                                                      
+
                                                    Enter q or quit to exit the application.
-                                                                                                      
+
                                                    """);
 
             if (userSelection.equalsIgnoreCase("q") || userSelection.equalsIgnoreCase("quit")){
@@ -98,8 +95,8 @@ public class GradesApplication{
     //METHODS
     private static void allStudentNames(HashMap<String, Student> students){
         for(Map.Entry<String, Student> student : students.entrySet()){
-            if(!studentNames.contains(student.getValue().name)){
-            studentNames.add(student.getValue().getName());
+            if (!studentNames.contains(student.getValue().name)){
+                studentNames.add(student.getValue().getName());
             }
         }
         System.out.println(studentNames);
@@ -107,7 +104,6 @@ public class GradesApplication{
 
     private static void showStudentData(){
         String userSelect = input.getString("""
-                                                  
                                             Enter the name of the student you would like more information for
                                             """);
         for(Map.Entry<String, Student> student : students.entrySet()){
@@ -119,7 +115,6 @@ public class GradesApplication{
 
     private static void setStudentAttendance(){
         String userSelect = input.getString("""
-
                                             Enter the name of the student you would like to add attendance data for.
                                             """);
         for(Map.Entry<String, Student> student : students.entrySet()){
@@ -157,5 +152,7 @@ public class GradesApplication{
             e.printStackTrace();
         }
     }
+
+    private final static String jdbcInfo = "!!11Andrea";
 
 }

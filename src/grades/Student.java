@@ -54,7 +54,6 @@ public class Student{
     }
 
 
-
     public void showAllGrades(){
         System.out.printf("""
                           %s has the following grades:
@@ -89,8 +88,6 @@ public class Student{
         return days;
     }
 
-
-
     protected void setStudentAttendance(){
         while (true){
             String attendanceDate = input.getString("Enter the date using the following format: 2017-10-03%n");
@@ -110,7 +107,6 @@ public class Student{
 
     public void showAllStudentData(){
         System.out.printf("""
-                          
                           Name: %s
                           GitHub username: %s
                           Grade average: %.2f
@@ -119,5 +115,4 @@ public class Student{
                           Missed days: %s
                           """, name, githubUsername, getGradeAverage(grades), grades.toString(), getAttendancePercentage(attendance), missedDates(attendance));
     }
-
 }
