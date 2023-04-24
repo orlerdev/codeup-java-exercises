@@ -75,7 +75,7 @@ public class Student{
                 missedDays++;
             }
         }
-        return (double) (totalDays - missedDays) / totalDays;
+        return (double) (totalDays - missedDays) / totalDays * 100;
     }
 
     public ArrayList<String> missedDates(HashMap<String,String> attendance){
@@ -95,7 +95,7 @@ public class Student{
                                                       Enter the student's status for the day:
                                                       P if present
                                                       A if absent
-                                                      %n""");
+                                                      """);
             recordAttendance(attendanceDate, attendanceStatus.toUpperCase());
             String userQuit = input.getString("Would you like to add another day? [y/N]%n");
             if (!userQuit.equalsIgnoreCase("y")){
@@ -111,7 +111,7 @@ public class Student{
                           GitHub username: %s
                           Grade average: %.2f
                           All grades: %s
-                          Attendance percentage: %.2f
+                          Attendance percentage: %.2f%%
                           Missed days: %s
                           """, name, githubUsername, getGradeAverage(grades), grades.toString(), getAttendancePercentage(attendance), missedDates(attendance));
     }
